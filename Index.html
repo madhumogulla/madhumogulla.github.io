@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madhu Mogulla — Technical Solution Architect</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --ink-muted: #5a5a5a;
+    --ink-faint: #999;
+    --paper: #f5f3ee;
+    --paper-warm: #ece9e2;
+    --accent: #1a3a5c;
+    --accent-bright: #2563eb;
+    --accent-light: #dbeafe;
+    --gold: #b8860b;
+    --gold-light: #fef9e7;
+    --line: rgba(13,13,13,0.1);
+    --line-strong: rgba(13,13,13,0.2);
+    --radius: 4px;
+    --radius-lg: 12px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    height: 64px;
+    background: rgba(245,243,238,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 64px;
+  }
+  .hero-left {
+    padding: 80px 48px 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-right: 1px solid var(--line);
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent-bright);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px; height: 1px;
+    background: var(--accent-bright);
+  }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(52px, 6vw, 80px);
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .hero-name span { color: var(--accent-bright); }
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink-muted);
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+  .hero-desc {
+    font-size: 15px;
+    color: var(--ink-muted);
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 40px;
+  }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink);
+    color: var(--paper);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    text-decoration: none;
+    letter-spacing: 0.01em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    border: 1px solid var(--line-strong);
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+  .hero-right {
+    padding: 80px 48px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .stat-cell {
+    background: var(--paper);
+    padding: 28px 24px;
+  }
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .stat-number sup { font-size: 20px; }
+  .stat-label {
+    font-size: 12px;
+    color: var(--ink-muted);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .cert-badge {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: var(--accent-light);
+    border: 1px solid rgba(37,99,235,0.2);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .cert-icon {
+    width: 40px; height: 40px;
+    background: var(--accent-bright);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .cert-icon svg { width: 22px; height: 22px; fill: white; }
+  .cert-text { flex: 1; }
+  .cert-name { font-size: 13px; font-weight: 500; color: var(--accent); line-height: 1.3; }
+  .cert-valid { font-size: 11px; color: #2563eb; margin-top: 2px; font-family: 'DM Mono', monospace; }
+
+  /* ── SECTIONS ── */
+  section { padding: 96px 48px; }
+  section:nth-child(even) { background: var(--paper-warm); }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-bright);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 24px; height: 1px;
+    background: var(--accent-bright);
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 48px;
+  }
+  .section-title em { color: var(--accent-bright); font-style: normal; }
+
+  .max-w { max-width: 1200px; margin: 0 auto; }
+
+  /* ── EXPERTISE ── */
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .expertise-card {
+    background: var(--paper);
+    padding: 32px 28px;
+    transition: background 0.2s;
+  }
+  .expertise-card:hover { background: #f0ede5; }
+  .expertise-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+    letter-spacing: 0.06em;
+  }
+  .expertise-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .expertise-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .expertise-desc {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* ── EXPERIENCE ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 0;
+    border-top: 1px solid var(--line);
+    padding: 40px 0;
+  }
+  .timeline-item:last-child { border-bottom: 1px solid var(--line); }
+  .timeline-left { padding-right: 40px; }
+  .timeline-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .timeline-company {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .timeline-right {}
+  .timeline-role {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .timeline-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .timeline-bullets li {
+    font-size: 14px;
+    color: var(--ink-muted);
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.6;
+  }
+  .timeline-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent-bright);
+    font-size: 12px;
+  }
+  .timeline-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 20px;
+  }
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .project-card {
+    background: var(--paper);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--accent-bright);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover::before { transform: scaleX(1); }
+  .project-card.featured { background: var(--ink); }
+  .project-card.featured .project-title,
+  .project-card.featured .project-outcome,
+  .project-card.featured .proj-num { color: var(--paper); }
+  .project-card.featured .project-desc { color: rgba(245,243,238,0.65); }
+  .project-card.featured .tag { background: rgba(255,255,255,0.1); color: #93c5fd; }
+  .proj-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-bottom: 16px;
+    letter-spacing: 0.06em;
+  }
+  .project-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 12px;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 13px;
+    color: var(--ink-muted);
+    line-height: 1.65;
+    margin-bottom: 20px;
+  }
+  .project-outcome {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+  }
+
+  /* ── SKILLS ── */
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .skills-intro { font-size: 15px; color: var(--ink-muted); line-height: 1.7; }
+  .skills-groups { display: flex; flex-direction: column; gap: 32px; }
+  .skill-group-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-pill {
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    padding: 6px 14px;
+    border-radius: 100px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .skill-pill:hover { border-color: var(--accent-bright); background: var(--accent-light); }
+  .skill-pill.highlight {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: start;
+  }
+  .contact-tagline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(28px, 3.5vw, 42px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: 24px;
+  }
+  .contact-tagline em { color: var(--accent-bright); font-style: normal; }
+  .contact-note { font-size: 15px; color: var(--ink-muted); line-height: 1.7; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .contact-link:hover { border-color: var(--accent-bright); transform: translateX(4px); }
+  .contact-link-icon {
+    width: 40px; height: 40px;
+    background: var(--accent-light);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .contact-link-label { font-size: 12px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'DM Mono', monospace; }
+  .contact-link-value { font-size: 14px; font-weight: 500; color: var(--ink); margin-top: 2px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 24px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp 0.7s ease forwards; }
+  .fade-up-1 { animation-delay: 0.1s; opacity: 0; }
+  .fade-up-2 { animation-delay: 0.25s; opacity: 0; }
+  .fade-up-3 { animation-delay: 0.4s; opacity: 0; }
+  .fade-up-4 { animation-delay: 0.55s; opacity: 0; }
+  .fade-up-5 { animation-delay: 0.7s; opacity: 0; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { gap: 20px; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 60px 24px 40px; border-right: none; border-bottom: 1px solid var(--line); }
+    .hero-right { padding: 40px 24px 60px; }
+    section { padding: 64px 24px; }
+    .expertise-grid { grid-template-columns: 1fr 1fr; }
+    .timeline-item { grid-template-columns: 1fr; gap: 12px; }
+    .timeline-left { padding-right: 0; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-layout { grid-template-columns: 1fr; gap: 32px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; gap: 8px; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">MM</a>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding:0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow fade-up fade-up-1">Technical Solution Architect</div>
+    <h1 class="hero-name fade-up fade-up-2">Madhu<br><span>Mogulla</span></h1>
+    <p class="hero-title fade-up fade-up-3">Architect · Solutioner · Delivery Leader</p>
+    <p class="hero-desc fade-up fade-up-4">
+      14+ years architecting enterprise solutions, shaping RFP/RFI responses, and governing complex transformation programmes across APAC, UK, and the US. I operate across the full engagement lifecycle — from first prospect conversation to go-live.
+    </p>
+    <div class="hero-ctas fade-up fade-up-5">
+      <a href="#contact" class="btn-primary">→ Get in touch</a>
+      <a href="#experience" class="btn-outline">View experience</a>
+    </div>
+  </div>
+  <div class="hero-right fade-up fade-up-3">
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <div class="stat-number">14<sup>+</sup></div>
+        <div class="stat-label">Years in Technology</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">25<sup>+</sup></div>
+        <div class="stat-label">Enterprise Programmes</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">100<sup>+</sup></div>
+        <div class="stat-label">Proposals & Demos</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-number">$5M<sup>+</sup></div>
+        <div class="stat-label">Revenue Generated</div>
+      </div>
+    </div>
+    <div class="cert-badge">
+      <div class="cert-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M13 3L4 14h7l-2 7 9-11h-7l2-7z"/></svg>
+      </div>
+      <div class="cert-text">
+        <div class="cert-name">Microsoft Certified: Azure Solutions Architect Expert — AZ-303 &amp; AZ-304</div>
+        <div class="cert-valid">✓ Valid to March 2027</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="max-w">
+    <div class="section-label">What I do</div>
+    <h2 class="section-title">Core areas of <em>expertise</em></h2>
+    <div class="expertise-grid">
+      <div class="expertise-card">
+        <div class="expertise-num">01</div>
+        <span class="expertise-icon">🏗️</span>
+        <div class="expertise-name">Solution Architecture</div>
+        <p class="expertise-desc">Designing cloud-native, microservices-based, and distributed enterprise architectures with a focus on scalability, security, and resilience across Azure and AWS.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-num">02</div>
+        <span class="expertise-icon">📋</span>
+        <div class="expertise-name">RFP / Pre-Sales Leadership</div>
+        <p class="expertise-desc">Owning end-to-end RFP/RFI/RFQ responses — producing architecture blueprints, effort estimations, and solution decks that convert opportunities into programmes.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-num">03</div>
+        <span class="expertise-icon">☁️</span>
+        <div class="expertise-name">Cloud-Native Design</div>
+        <p class="expertise-desc">Azure and AWS cloud architecture with Microsoft Expert certification. Microservices, container orchestration, CI/CD pipelines, and infrastructure-as-code delivery.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-num">04</div>
+        <span class="expertise-icon">📂</span>
+        <div class="expertise-name">ECM & Content Architecture</div>
+        <p class="expertise-desc">14 years of deep IBM FileNet, Datacap, BAW, and Alfresco expertise. Designed large-scale content migration tools and digitisation platforms for BFSI, logistics, and healthcare.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-num">05</div>
+        <span class="expertise-icon">🤖</span>
+        <div class="expertise-name">AI / GenAI Adoption</div>
+        <p class="expertise-desc">Designed and operationalised AI-powered agents and GenAI tooling within enterprise SDLC workflows — code generation, regression analysis, testing automation — under Responsible AI principles.</p>
+      </div>
+      <div class="expertise-card">
+        <div class="expertise-num">06</div>
+        <span class="expertise-icon">🎯</span>
+        <div class="expertise-name">Delivery Governance</div>
+        <p class="expertise-desc">Multi-stream, multi-geography programme governance. Aligning proposed architecture with implemented outcomes, mentoring teams, and driving COE accelerators and capability frameworks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" style="background:var(--paper-warm);">
+  <div class="max-w">
+    <div class="section-label">Career</div>
+    <h2 class="section-title">Where I've <em>worked</em></h2>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Aug 2024 — Present</div>
+          <div class="timeline-company">Smart Krow Technology Solutions</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-role">Senior Technical Manager / Solution Architect</div>
+          <ul class="timeline-bullets">
+            <li>Lead technical solutioning, RFP/RFI responses, architecture blueprints, and effort estimations for new client engagements in collaboration with sales and practice leads.</li>
+            <li>Act as Solution Architect on key engagements — providing technical direction, governing architecture decisions, and ensuring alignment between design and implementation.</li>
+            <li>Design cloud-native architectures across Azure and AWS — microservices, API design, CI/CD pipelines, and deployment automation.</li>
+            <li>Designed and operationalised AI-powered agents and GenAI tooling within SDLC workflows under Responsible AI guidelines.</li>
+            <li>Mentor engineering teams on architectural best practices, DevOps discipline, and cloud-native design patterns.</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">Microservices</span>
+            <span class="tag">GenAI</span><span class="tag">ECM</span><span class="tag">Pre-Sales</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-left">
+          <div class="timeline-period">Jul 2011 — Aug 2024</div>
+          <div class="timeline-company">Innova Solutions</div>
+        </div>
+        <div class="timeline-right">
+          <div class="timeline-role">Associate Director — Solution Architect & Engineering Lead</div>
+          <ul class="timeline-bullets">
+            <li>Delivered 100+ technical proposals, solution decks, and live PoCs for enterprise clients across APAC and the US — generating USD 5M+ in revenue.</li>
+            <li>Owned RFP/RFI responses and solution architecture across 25+ ECM modernisation, cloud migration, and workflow automation programmes globally.</li>
+            <li>Acted as client-facing Solution Architect in Singapore, Malaysia, India, UK, and the US — leading discovery workshops, requirement alignment, and architectural governance.</li>
+            <li>Designed and built a proprietary ECM migration tool used as a core delivery accelerator across 25+ client engagements with 100% migration accuracy.</li>
+            <li>Built an enterprise OCR/document capture platform adopted across BFSI, logistics, manufacturing, and healthcare clients in APAC and the US.</li>
+            <li>Led cloud migration programmes for logistics and finance clients — architecting scalable Azure and AWS solutions.</li>
+          </ul>
+          <div class="timeline-tags">
+            <span class="tag">IBM FileNet</span><span class="tag">Azure</span><span class="tag">AWS S3</span>
+            <span class="tag">.NET</span><span class="tag">Java</span><span class="tag">Oracle</span>
+            <span class="tag">APAC</span><span class="tag">BFSI</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="max-w">
+    <div class="section-label">Featured work</div>
+    <h2 class="section-title">Key <em>projects</em> & accelerators</h2>
+    <div class="projects-grid">
+
+      <div class="project-card featured">
+        <div class="proj-num">★ Flagship Accelerator</div>
+        <div class="project-title">Proprietary ECM Content Migration Tool</div>
+        <p class="project-desc">Designed and developed from the ground up — a tool enabling seamless large-scale migrations from legacy ECM systems to modern repositories and cloud containers (Azure Blob / AWS S3). Now used as a core delivery accelerator across 25+ client programmes.</p>
+        <div class="project-outcome">✓ 25+ deployments · 100% migration accuracy · Millions of documents migrated</div>
+        <div class="timeline-tags"><span class="tag">Azure Blob</span><span class="tag">AWS S3</span><span class="tag">IBM FileNet</span><span class="tag">Migration</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-num">02</div>
+        <div class="project-title">Enterprise OCR & Document Capture Platform</div>
+        <p class="project-desc">Built an end-to-end document digitisation and OCR solution integrating with DMS, WMS, and ERP systems. Deployed across manufacturing, logistics, healthcare, and BFSI clients in APAC and the US.</p>
+        <div class="project-outcome">✓ Multi-industry adoption · Invoice automation · DMS/ERP integration</div>
+        <div class="timeline-tags"><span class="tag">OCR</span><span class="tag">IBM Datacap</span><span class="tag">BFSI</span><span class="tag">Logistics</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-num">03</div>
+        <div class="project-title">EDMS Implementation — Singapore & Malaysia BFSI</div>
+        <p class="project-desc">Implemented Enterprise Document Management Systems for leading financial institutions across Singapore and Malaysia — covering content architecture, metadata design, security modelling, and integration with core banking systems.</p>
+        <div class="project-outcome">✓ Regulatory compliance · Secure content repository · Live in production</div>
+        <div class="timeline-tags"><span class="tag">IBM FileNet</span><span class="tag">BFSI</span><span class="tag">Singapore</span><span class="tag">Malaysia</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-num">04</div>
+        <div class="project-title">Cloud Migration — APAC Logistics & Finance</div>
+        <p class="project-desc">Led cloud migration programmes for logistics and finance clients across APAC — architecting scalable, resilient cloud-native platforms on Azure and AWS with CI/CD automation, security compliance, and operational monitoring.</p>
+        <div class="project-outcome">✓ Legacy to cloud · Azure & AWS · Reduced infrastructure costs</div>
+        <div class="timeline-tags"><span class="tag">Azure</span><span class="tag">AWS</span><span class="tag">DevOps</span><span class="tag">CI/CD</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-num">05</div>
+        <div class="project-title">AI-Powered SDLC Agents — GenAI Adoption</div>
+        <p class="project-desc">Designed and operationalised AI-powered agents within enterprise SDLC — covering code generation, automated regression analysis, testing automation, and impact assessment — under Responsible AI governance frameworks.</p>
+        <div class="project-outcome">✓ Reduced testing effort · Faster delivery cycles · Responsible AI compliant</div>
+        <div class="timeline-tags"><span class="tag">GenAI</span><span class="tag">AI Agents</span><span class="tag">SDLC</span><span class="tag">Responsible AI</span></div>
+      </div>
+
+      <div class="project-card">
+        <div class="proj-num">06</div>
+        <div class="project-title">WMS Modernisation — Manufacturing, Singapore</div>
+        <p class="project-desc">Modernised a legacy Workflow Management System for a major manufacturing company in Singapore — re-architecting processes on a modern platform with improved performance, compliance, and integration capabilities.</p>
+        <div class="project-outcome">✓ Legacy replaced · Process automation · Manufacturing compliance</div>
+        <div class="timeline-tags"><span class="tag">WMS</span><span class="tag">IBM BAW</span><span class="tag">Manufacturing</span><span class="tag">Singapore</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" style="background:var(--paper-warm);">
+  <div class="max-w">
+    <div class="section-label">Technical profile</div>
+    <h2 class="section-title">Skills &amp; <em>technologies</em></h2>
+    <div class="skills-layout">
+      <div>
+        <p class="skills-intro">
+          A broad but deep technical profile built across 14 years of hands-on architecture, engineering leadership, and client delivery — from legacy ECM platforms to cloud-native microservices to GenAI adoption.
+        </p>
+        <div style="margin-top:28px; padding:20px; background:var(--ink); border-radius:var(--radius); color:var(--paper);">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:rgba(245,243,238,0.5); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:8px;">Certification</div>
+          <div style="font-size:13px; font-weight:500; line-height:1.5;">Microsoft Azure Solutions Architect Expert<br><span style="color:#93c5fd; font-size:12px; font-family:'DM Mono',monospace;">AZ-303 · AZ-304 · Valid March 2027</span></div>
+        </div>
+      </div>
+      <div class="skills-groups">
+        <div>
+          <div class="skill-group-title">Architecture & Cloud</div>
+          <div class="skill-pills">
+            <span class="skill-pill highlight">Azure</span>
+            <span class="skill-pill highlight">AWS</span>
+            <span class="skill-pill">Microservices</span>
+            <span class="skill-pill">REST APIs</span>
+            <span class="skill-pill">Distributed Systems</span>
+            <span class="skill-pill">Docker</span>
+            <span class="skill-pill">Kubernetes</span>
+            <span class="skill-pill">IaC / ARM / Bicep</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">ECM & Content Platforms</div>
+          <div class="skill-pills">
+            <span class="skill-pill highlight">IBM FileNet</span>
+            <span class="skill-pill highlight">IBM Datacap</span>
+            <span class="skill-pill">IBM BAW</span>
+            <span class="skill-pill">IBM Navigator</span>
+            <span class="skill-pill">Alfresco</span>
+            <span class="skill-pill">SharePoint</span>
+            <span class="skill-pill">iManage</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Development & DevOps</div>
+          <div class="skill-pills">
+            <span class="skill-pill">.NET / C#</span>
+            <span class="skill-pill">Java</span>
+            <span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">React / Angular</span>
+            <span class="skill-pill">CI/CD Pipelines</span>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">DevOps</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Data & AI</div>
+          <div class="skill-pills">
+            <span class="skill-pill highlight">GenAI / AI Agents</span>
+            <span class="skill-pill">SQL Server</span>
+            <span class="skill-pill">Oracle</span>
+            <span class="skill-pill">DB2</span>
+            <span class="skill-pill">PostgreSQL</span>
+            <span class="skill-pill">Data Pipelines</span>
+          </div>
+        </div>
+        <div>
+          <div class="skill-group-title">Delivery & Governance</div>
+          <div class="skill-pills">
+            <span class="skill-pill">RFP / RFI / RFQ</span>
+            <span class="skill-pill">Pre-Sales</span>
+            <span class="skill-pill">Agile / Scrum</span>
+            <span class="skill-pill">Waterfall</span>
+            <span class="skill-pill">SDLC Governance</span>
+            <span class="skill-pill">COE / Accelerators</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOGNITION -->
+<section>
+  <div class="max-w">
+    <div class="section-label">Recognition</div>
+    <h2 class="section-title">Awards &amp; <em>achievements</em></h2>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden;">
+      <div style="background:var(--paper); padding:28px 24px;">
+        <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-faint); margin-bottom:10px; letter-spacing:0.06em;">2023</div>
+        <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px;">Innovation in Delivery</div>
+        <div style="font-size:13px; color:var(--ink-muted);">Innova Summit — recognised for designing reusable solution accelerators and delivery frameworks that reduced programme effort across 25+ client engagements.</div>
+      </div>
+      <div style="background:var(--paper); padding:28px 24px;">
+        <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-faint); margin-bottom:10px; letter-spacing:0.06em;">2021 · 2022</div>
+        <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px;">Innova Idol</div>
+        <div style="font-size:13px; color:var(--ink-muted);">Innova Summit — awarded consecutively for technical innovation, client-facing excellence, and outstanding contribution to delivery outcomes across APAC.</div>
+      </div>
+      <div style="background:var(--paper); padding:28px 24px;">
+        <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-faint); margin-bottom:10px; letter-spacing:0.06em;">Client Recognition</div>
+        <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px;">Certificate of Appreciation</div>
+        <div style="font-size:13px; color:var(--ink-muted);">Outstanding contribution and support provided to clients — recognised directly by enterprise clients across APAC for delivery excellence and trusted advisory.</div>
+      </div>
+      <div style="background:var(--paper); padding:28px 24px;">
+        <div style="font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-faint); margin-bottom:10px; letter-spacing:0.06em;">DMS Migrations</div>
+        <div style="font-family:'Syne',sans-serif; font-size:16px; font-weight:700; color:var(--ink); margin-bottom:8px;">Man For the DMS Migrations</div>
+        <div style="font-size:13px; color:var(--ink-muted);">Internal recognition for leading document management system migrations with exceptional accuracy, speed, and zero-defect delivery across multiple client programmes.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="background:var(--paper-warm);">
+  <div class="max-w">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Get in touch</div>
+        <h2 class="contact-tagline">Let's build something <em>exceptional</em> together.</h2>
+        <p class="contact-note">
+          I am open to Technical Solution Architect, Solution Architect, and senior architecture-focused roles where I can operate across solutioning, pre-sales, and delivery. Available for engagements across APAC and globally.
+        </p>
+        <div style="margin-top:28px; padding:20px 24px; background:var(--ink); border-radius:var(--radius); color:var(--paper);">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:rgba(245,243,238,0.45); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:6px;">Based in</div>
+          <div style="font-size:14px; font-weight:500;">Hyderabad, India · Open to APAC, global remote</div>
+        </div>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:madhumogulla@hotmail.com" class="contact-link">
+          <div class="contact-link-icon">✉️</div>
+          <div>
+            <div class="contact-link-label">Email</div>
+            <div class="contact-link-value">madhumogulla@hotmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+919966317628" class="contact-link">
+          <div class="contact-link-icon">📞</div>
+          <div>
+            <div class="contact-link-label">Phone</div>
+            <div class="contact-link-value">+91 9966317628</div>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/madhumogulla4aa50146" target="_blank" class="contact-link">
+          <div class="contact-link-icon">🔗</div>
+          <div>
+            <div class="contact-link-label">LinkedIn</div>
+            <div class="contact-link-value">linkedin.com/in/madhumogulla4aa50146</div>
+          </div>
+        </a>
+        <a href="#" class="contact-link" onclick="window.print(); return false;">
+          <div class="contact-link-icon">📄</div>
+          <div>
+            <div class="contact-link-label">Resume</div>
+            <div class="contact-link-value">Download / Print Portfolio</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Madhu Mogulla — Technical Solution Architect</span>
+  <span>Hyderabad, India</span>
+</footer>
+
+</body>
+</html>
